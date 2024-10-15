@@ -14,6 +14,9 @@
         <Protobuf Update="..\Flawless.Shared\Protos\auth.proto">
           <Link>Protos\auth.proto</Link>
         </Protobuf>
+        <Protobuf Update="..\Flawless.Shared\Protos\auth_token.proto">
+          <Link>Protos\auth_token.proto</Link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>

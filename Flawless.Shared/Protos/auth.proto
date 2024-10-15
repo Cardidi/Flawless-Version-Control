@@ -1,34 +1,142 @@
 syntax = "proto3";
 option csharp_namespace = "Flawless.Api";
+package Auth;
 
+import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 
-service Auth {
-  rpc GainToken(AuthRequest) returns (AuthResult);
-  rpc GetUserInfo(google.protobuf.Empty) returns (AuthUserInfo);
-  rpc Validate(google.protobuf.Empty) returns (google.protobuf.Empty);
+// Service state detector
+service ServiceStatus {
+  rpc ValidateAuth(google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc AbleLogin(google.protobuf.Empty) returns (google.protobuf.BoolValue);
+  rpc AbleRegister(google.protobuf.Empty) returns (google.protobuf.BoolValue);
 }
 
-message RegisterAuthRequest {
+////  TOKEN  ////
+
+// Token management
+service Token {
+  rpc Register(RegisterTokenRequest) returns (TokenResponse);
+  rpc Login(LoginTokenRequest) returns (TokenResponse);
+  rpc Refresh(RefreshTokenRequest) returns (TokenResponse);
+}
+
+message RegisterTokenRequest {
+  string user_name = 1;
+  optional string nick_name = 2;
+  string mail_address = 3;
+  string password = 4;
+}
+
+message LoginTokenRequest {
   string user_name = 1;
   string password = 2;
+  optional uint32 expired_timeout = 3;
 }
 
-message AuthRequest {
-  string user_name = 1;
-  string password = 2;
-  uint32 expires = 3;
+message RefreshTokenRequest {
+  uint64 user_id = 1;
+  string renew_token = 2;
 }
 
-message AuthResult {
-  int32 result = 1;
-  string message = 2;
-  string token = 3;
+message TokenResponse {
+  TokenResponseResult type = 1;
+  optional string details = 2;
+  optional TokenDetails token = 3;
 }
 
-message AuthUserInfo {
+message TokenDetails {
+  uint64 user_id = 1;
+  string jwt_token = 2;
+  string renew_token = 3;
+}
+
+enum TokenResponseResult {
+  SUCCESS = 0;
+  UNTOLD = -1;;
+  
+  // Standard login errors
+  INVALID_USERNAME_OR_PASSWORD = -101;
+  REQUIRE_CHALLENGE = -102;
+  LIMIT_LOGIN_RATE = -103;
+  LIMIT_LOGIN_TIME_TODAY = -104;
+  
+  // For renew token
+  REQUIRE_LOGIN_AGAIN = -200;
+  
+  // For register
+  REGISTER_MAIL_OCCUPIED = -300;
+  REGISTER_USERNAME_OCCUPIED = -301;
+  REGISTER_STATE_CLOSED = -302;
+}
+
+////  USER  ////
+
+service User {
+  rpc GetAvatar(GetUserAvatarRequest) returns (stream GetUserAvatarResponse);
+  rpc GetInfo(GetUserInfoRequest) returns (GetUserInfoResponse);
+  rpc SetAvatar(stream SetUserAvatarRequest) returns (SetUserDataResponse);
+  rpc SetInfo(SetUserInfoRequest) returns (SetUserDataResponse);
+  rpc SetPassword(SetLoginUserPasswordRequest) returns (SetUserDataResponse);
+}
+
+message GetUserInfoRequest {
+  oneof match_type {
+    string user_name = 1;
+    uint64 user_id = 2;
+  }
+}
+
+message GetUserAvatarRequest {
+  uint64 user_id = 1;
+}
+
+message SetUserAvatarRequest {
+  uint64 user_id = 1;
+  bytes data = 2;
+}
+
+message SetUserInfoRequest {
+  optional string user_name = 1;
+  optional string mail_address = 2;
+  optional string phone_number = 3;
+  optional UserSex user_sex = 4;
+  optional string user_bio = 5;
+}
+
+message SetLoginUserPasswordRequest {
+  string new_password = 1;
+  oneof ownership_validation {
+    string old_password = 2;
+    string temp_code = 3;
+  }
+}
+
+message GetUserAvatarResponse {
+  uint64 user_id = 1;
+  string file_name = 2;
+  bytes data = 3;
+}
+
+message GetUserInfoResponse {
   uint64 user_id = 1;
   string user_name = 2;
-  uint64 last_login = 3;
-  bool is_system_admin = 4;
+  string mail_address = 3;
+  uint64 last_login = 4;
+  optional string phone_number = 6;
+  optional UserSex user_sex = 7;
+  optional string user_bio = 8;
+}
+
+message SetUserDataResponse {
+  bool success = 1;
+  optional string details = 2;
+}
+
+enum UserSex
+{
+  UNSET = 0;
+  MALE = 1;
+  FEMALE = 2;
+  WALMART_PLASTIC_BAG = 3;
 }
