@@ -7,5 +7,5 @@ public interface IDepotLabel
 {
     public abstract HashId Id { get; }
     
-    public IEnumerable<HashId> Dependencies { get; }
+    public abstract IEnumerable<HashId> Dependencies { get; }
 }

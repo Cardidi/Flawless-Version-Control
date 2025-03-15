@@ -3,6 +3,7 @@
 /// <summary>
 /// An author setup to indicate who create a depot or identify a depot author when uploading it.
 /// </summary>
+[Serializable]
 public readonly struct Author : IEquatable<Author>
 {
     public readonly string Name;

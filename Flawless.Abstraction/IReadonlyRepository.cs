@@ -7,15 +7,9 @@ public interface IReadonlyRepository
 {
     public bool IsReadonly { get; }
 
-
-    public uint GetLatestCommitId();
-    
     public IEnumerable<RepositoryCommit> GetCommits();
     
     public RepositoryCommit? GetCommitById(uint commitId);
-    
-
-    public Task<uint> GetLatestCommitIdAsync(CancellationToken cancellationToken = default);
     
     public IAsyncEnumerable<RepositoryCommit> GetCommitsAsync(CancellationToken cancellationToken = default);
     

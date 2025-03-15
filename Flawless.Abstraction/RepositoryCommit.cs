@@ -13,4 +13,9 @@ public abstract class RepositoryCommit
     public abstract string Message { get; }
     
     public abstract IDepotLabel Depot { get; }
+
+    public abstract RepositoryCommit? GetParentCommit();
+    
+    public abstract RepositoryCommit? GetChildCommit();
+    
 }
