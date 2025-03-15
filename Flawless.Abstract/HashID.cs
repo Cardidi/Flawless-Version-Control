@@ -6,9 +6,9 @@ namespace Flawless.Abstraction;
 /// An MD5 based hash code storage.
 /// </summary>
 [Serializable]
-public readonly struct HashId : IEquatable<HashId>
+public record struct HashId
 {
-    public static HashId Empty { get; } = new(0);
+    public static HashId Empty => new(0);
     
     private readonly UInt128 _hash;
 
@@ -17,14 +17,14 @@ public readonly struct HashId : IEquatable<HashId>
         _hash = hash;
     }
 
+    public HashId(ulong upper, ulong lower)
+    {
+        _hash = new UInt128(upper, lower);
+    }
+
     public bool Equals(HashId other)
     {
         return _hash == other._hash;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is HashId other && Equals(other);
     }
 
     public override int GetHashCode()

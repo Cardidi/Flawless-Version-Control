@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flawless.Abstraction", "Flawless.Abstraction\Flawless.Abstraction.csproj", "{2AF2AA78-8AFB-49B7-AE38-842D301A4DDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flawless.Abstract", "Flawless.Abstract\Flawless.Abstract.csproj", "{2AF2AA78-8AFB-49B7-AE38-842D301A4DDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flawless.Abstract.Test", "Flawless.Abstract.Test\Flawless.Abstract.Test.csproj", "{5B1CB26D-99F5-491A-B368-7E3552FE67E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flawless.Core", "Flawless.Core\Flawless.Core.csproj", "{FA8139D0-FBA4-4F17-9017-B446A732D0E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{5B1CB26D-99F5-491A-B368-7E3552FE67E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B1CB26D-99F5-491A-B368-7E3552FE67E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B1CB26D-99F5-491A-B368-7E3552FE67E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8139D0-FBA4-4F17-9017-B446A732D0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8139D0-FBA4-4F17-9017-B446A732D0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8139D0-FBA4-4F17-9017-B446A732D0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8139D0-FBA4-4F17-9017-B446A732D0E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

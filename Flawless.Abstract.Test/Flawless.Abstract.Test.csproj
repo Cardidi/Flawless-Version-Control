@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Flawless.Abstraction\Flawless.Abstraction.csproj" />
+      <ProjectReference Include="..\Flawless.Abstract\Flawless.Abstract.csproj" />
     </ItemGroup>
 
 </Project>
